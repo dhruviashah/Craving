@@ -1,0 +1,162 @@
+<html>
+	<head>
+		<title>Product list</title>
+		<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" rel="stylesheet">		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		{% load cart_info %}
+		{% load custom_filter %}
+		<style>
+			body
+			{
+				background-color: #e8e8e8;
+			}
+			#logo
+			{
+				font-style: italic;
+				margin-left: 15px;
+			}
+			#navbar_item
+			{
+				margin-left: 15px;
+				margin-right: 15 px;
+			}
+			#sidebar_column
+			{
+				background-color: #e8e8e8;
+				color: #5b6d5b;
+				padding-top: 10px;
+			}
+			#sidebar_link
+			{
+				color: #383e56;
+			}
+			#sb_data:hover
+			{
+				background-color: #cccccc;
+			}
+			#heading
+			{
+				margin-top: 30px;
+				font-style: italic;
+				font-weight: 500;
+				padding-left: 200px;
+				padding-bottom: 20px;
+			}
+			#content_row
+			{
+				margin-left: 70px;
+				margin-right: 70px
+			}
+			#item_row
+			{
+				border: 2px solid #424242;
+			}
+			#img_column
+			{
+				background-color: #f9f3f3;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			#info_column, #total_column
+			{
+				background-color: #f9f3f3;
+				padding-top: 10px;
+			}
+			#total_row
+			{
+				float: right;
+				padding-right: 235px;
+			}
+			#footer
+			{
+				padding: 5px;
+			}
+			#footerlink
+			{
+				color: #ffffff;
+			}
+			body
+			{
+    			display: flex;
+			    min-height: 100vh;
+			    flex-direction: column;
+			}
+			main
+			{
+			    flex: 1 0 auto;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper">
+					<a href="" class="brand-logo" id="logo">Cravings</a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li id="navbar_item">
+							<a href="recipe_list">Dashboard</a>
+						</li>	
+						<li>
+							<a href="">Log out
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+  									<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+								</svg>
+							</a>
+						</li>					
+					</ul>
+				</div>
+			</nav>
+		</div>
+		
+		<main>
+			<div class="row" id="content_row">
+				<h6 id="heading">Items in your cart:</h6>
+					{% for recipe in products %}
+						<div class="container">
+							<div class="row" id="item_row">
+								<div class="col-sm-2" id="img_column">
+									<div class="center-align">
+										<img style="height: 80px;" class="" src="{{recipe.img.url}}">
+									</div>
+								</div>
+								<div class="col-sm-8" id="info_column">
+									Product name: {{recipe.recipe_name}} <br>
+									Price: {{recipe.recipe_price|currency}} <br>
+									Quantity: {{recipe|cart_quantity:request.session.cart}}
+								</div>
+								<dv class="col-sm-2" id="total_column">
+									Total: {{recipe|price_total:request.session.cart|currency}}
+								</dv>
+							</div>
+						</div>
+					{% endfor %}
+					<div class="contaier" id="total_container">
+						<div class="row" id="total_row">
+							<b>Total : {{products|total_cart_price:request.session.cart|currency}}</b>
+						</div>
+					</div>
+			</div>	
+			<div class="center-align">
+				<a href="order_display" class="waves-effect waves-light btn" type="submit">Check out</a>
+			</div>
+		</main>
+
+		<footer class="page-footer">
+            <div class="row">
+           		<div class="col-sm-9"></div>
+           		<div class="col-sm-2"></div>
+           		<div class="col-sm-1">
+           			<a href=" class="center-align" id="footerlink">
+           				<i class="material-icons left" style="padding-left: 3px;">live_help</i>Help
+           			</a>
+           		</div>
+		    </div>
+		</footer>
+
+	</body>
+</html>

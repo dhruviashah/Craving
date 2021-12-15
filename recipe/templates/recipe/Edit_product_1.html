@@ -1,0 +1,207 @@
+<html>
+	<head>
+		<title>Edit Product</title>
+		<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" rel="stylesheet">		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<style>
+			body
+			{
+				background-color: #e8e8e8;
+			}
+			#logo
+			{
+				font-style: italic;
+				margin-left: 15px;
+			}
+			#navbar_item
+			{
+				margin-left: 15px;
+				margin-right: 15 px;
+			}
+			#sidebar_column
+			{
+				background-color: #e8e8e8;
+				color: #5b6d5b;
+				padding-top: 10px;
+			}
+			#sidebar_link
+			{
+				color: #383e56;
+			}
+			#sb_data:hover
+			{
+				background-color: #cccccc;
+			}
+			#content_column
+			{
+				margin-top: 20px;
+				margin-left: 20px;
+				margin-right: 20px;
+				width: 1084.16px;
+			}
+			#heading
+			{
+				font-style: italic;
+				margin-top: 10px;
+			}
+			#label
+			{
+				color: #383e56;
+				font-size: 15px;
+				margin-top: 10px;
+			}
+			#product_name, #product_servings, #product_cooktime, #product_image
+			{
+				height: 32px;
+				margin-bottom: 20px;
+			}
+			::placeholder
+			{
+				color: gray;
+			}
+			#button_next
+			{
+				height: 410x;
+				width: 100px;
+			}
+			#footer
+			{
+				padding: 5px;
+			}
+			#footerlink
+			{
+				color: #ffffff;
+			}
+			body
+			{
+    			display: flex;
+			    min-height: 100vh;
+			    flex-direction: column;
+			}
+			main
+			{
+			    flex: 1 0 auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper">
+					<a href="" class="brand-logo" id="logo">Cravings</a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li id="navbar_item">
+							<a href="">Dashboard</a>
+						</li>	
+						<li>
+							<a href="">Log out
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+  									<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+								</svg>
+							</a>
+						</li>					
+					</ul>
+				</div>
+			</nav>
+		</div>
+		
+		<main>
+			<div class="row" id="container_row">
+				<div class="col-md-2" id="sidebar_column">
+					<table>
+					  	<tr>
+					   		<td id="sb_data">
+									<i class="material-icons left">account_circle</i>{{ .name }}
+					   		</td>
+					  	</tr>
+					  	<tr id="sb_data">
+					    	<td>
+					    		<a href="" id="sidebar_link">
+									<i class="material-icons left">list</i>View Products
+								</a>
+					    	</td>
+					  	</tr>
+					  	<tr id="sb_data">
+					    	<td>
+					    		<a href="" id="sidebar_link">
+									<i class="material-icons left">playlist_add</i>Add product
+								</a>
+					    	</td>
+						</tr>
+						<tr id="sb_data">
+					    	<td>
+					    		<a href="" id="sidebar_link">
+									<i class="material-icons left">delete</i>Delete product
+								</a>
+					    	</td>
+						</tr>
+						<tr id="sb_data">
+					    	<td>
+					    		<a href="" id="sidebar_link">
+									<i class="material-icons left">person_add</i>Add staff member
+								</a>
+					    	</td>
+						</tr>
+						<tr id="sb_data">
+					    	<td>
+					    		<a href="" id="sidebar_link">
+									<i class="material-icons left">remove_circle</i>Remove staff member
+								</a>
+					    	</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="col-md-10" id="content_column">
+					
+					<h6 id="heading">Edit <i class="tiny material-icons">chevron_right</i> Product details</h6>
+
+					<form action="recipe/{{recipe.id}}" method="PUT" id="add_form">
+						<!-- {% csrf_token %} -->
+
+						<blockquote> <!-- insert the value property of the input tag for the prefilled input value -->
+							<label id="label">Product name:</label>
+							<input type="text" name="product_name" id="product_name" value="{{ recipe.recipe_name }}" placeholder="Enter product name">
+
+							<label id="label">Servings per meal-kit:</label>
+							<input type="number" name="product_servings" id="product_servings" value="{{ recipe.cooking_serving }}" placeholder="Enter the amount of servings">
+
+							<label id="label">Cooking time:</label>
+							<input type="text" name="product_name" id="product_cooktime" value="{{ recipe.cooking_time }}" placeholder="Enter the preparation time in minutes">
+
+		                	<label id="label">Select the image file for the product</label>
+		                	<div class = "file-field input-field">
+		                		<div class = "btn" id="button_file">
+		                    		<span>Choose</span>
+		                    		<input type = "file" />
+		                		</div>  
+		                		<div class = "file-path-wrapper">
+		                    		<input class = "file-path validate" type = "text" value="" placeholder = "Upload file" id="product_image" />
+		                		</div>
+		                	</div>
+		                	<div class="center-align">
+								<button class="btn waves-effect waves-light" type="submit" name="btn_next" id="button_next">Next</button>
+							</div>
+						</blockquote>
+					</form>
+				</div>
+			</div>
+		</main>
+
+		<footer class="page-footer">
+            <div class="row">
+           		<div class="col-sm-9"></div>
+           		<div class="col-sm-2"></div>
+           		<div class="col-sm-1">
+           			<a href="" class="center-align" id="footerlink">
+           				<i class="material-icons left" style="padding-left: 3px;">live_help</i>Help
+           			</a>
+           		</div>
+		    </div>
+		</footer>
+
+	</body>
+</html>

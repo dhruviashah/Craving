@@ -1,0 +1,161 @@
+<html>
+	<head>
+		<title>Order History</title>
+		<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" rel="stylesheet">		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		{% load order_total %}
+
+		<style>
+			body
+			{
+				background-color: #e8e8e8;
+			}
+			#logo
+			{
+				font-style: italic;
+				margin-left: 15px;
+			}
+			#navbar_item
+			{
+				margin-left: 15px;
+				margin-right: 15 px;
+			}
+			#sidebar_column
+			{
+				background-color: #e8e8e8;
+				color: #5b6d5b;
+				padding-top: 10px;
+			}
+			#sidebar_link
+			{
+				color: #383e56;
+			}
+			#sb_data:hover
+			{
+				background-color: #cccccc;
+			}
+			#heading
+			{
+				margin-top: 30px;
+				font-style: italic;
+				font-weight: 500;
+			}
+			#head_row
+			{
+				background-color: #cccccc;
+			}
+			#content_table
+			{
+				margin-top: 15px;
+			}
+			#footer
+			{
+				padding: 5px;
+			}
+			#footerlink
+			{
+				color: #ffffff;
+			}
+			body
+			{
+    			display: flex;
+			    min-height: 100vh;
+			    flex-direction: column;
+			}
+			main
+			{
+			    flex: 1 0 auto;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper">
+					<a href="" class="brand-logo" id="logo">Cravings</a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li id="navbar_item">
+							<a href="">Dashboard</a>
+						</li>	
+						<li>
+							<a href="logout">Log out
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+  									<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+								</svg>
+							</a>
+						</li>					
+					</ul>
+				</div>
+			</nav>
+		</div>
+		
+		<main>
+			<div class="row" id="container_row">
+				<div class="col-md-2" id="sidebar_column">
+					<table>
+					  	<tr>
+					   		<td id="sb_data">
+									<i class="material-icons left">account_circle</i>{{ request.session.name }}
+					   		</td>
+					  	</tr>
+					  	<tr id="sb_data">
+				    	<td>
+				    		<a href="" id="sidebar_link">
+								<i class="material-icons left">playlist_add</i>Current orders
+							</a>
+				    	</td>
+				  	</tr>
+				  	
+					</table>
+				</div>
+				
+				<div class="col-md-10" id="content_column">
+					<h6 id="heading">Order list:</h6>
+					<table id="content_table">
+						
+						<tr id="head_row">
+							<td>Sr no.</td>
+							<td>User id</td>
+							<td>no. of item</td>
+							<td>Show order</td>
+						</tr>
+						{% for order in orders %}
+						<tr>
+							<td> {{ .no}} </td>
+							<td> {{ order.customer}} </td>
+							<td> {{ order.dcount }} </td>
+							<td> 
+								<form action="staff_view_order" method="POST">
+									{% csrf_token %}
+									<input type="hidden" id="profile_id" name="profile_id" value={{order.customer}}>
+									<BUTTON type='submit'>Show</BUTTON>
+								</form> 
+							</td>
+						</tr>
+						{% endfor %}
+					</table>
+					
+				</div>
+			</div>
+		</main>
+		
+
+		<footer class="page-footer">
+            <div class="row">
+           		<div class="col-sm-9"></div>
+           		<div class="col-sm-2"></div>
+           		<div class="col-sm-1">
+           			<a href="" class="center-align" id="footerlink">
+           				<i class="material-icons left" style="padding-left: 3px;">live_help</i>Help
+           			</a>
+           		</div>
+		    </div>
+		</footer>
+
+	</body>
+</html>
